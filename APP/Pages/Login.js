@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet, View, Text, TextInput, TouchableOpacity, Image,
   KeyboardAvoidingView, SafeAreaView, StatusBar, Dimensions, Platform
 } from 'react-native';
+import { firebase_auth } from '../../firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
 
 const { width, height } = Dimensions.get('window');
 
-export default function Login({ navigation }) {
+const Login = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState('');
+  const auth = firebase_auth;
+
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      alert('Sign in failed');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <View style={styles.fullScreen}>
       <StatusBar backgroundColor="#004d40" barStyle="light-content" />
@@ -19,21 +40,25 @@ export default function Login({ navigation }) {
           <Text style={styles.welcomeText}>Welcome!</Text>
           <Text style={styles.loginText}>To AUI Buy & Sell</Text>
           <TextInput
+            value={email}
             style={styles.input}
-            placeholder="Email or Phone Number"
+            placeholder="Email"
             placeholderTextColor="#ccc"
+            onChangeText={(text) => setEmail(text)}
           />
           <TextInput
+            value={password}
             style={styles.input}
             placeholder="Password"
             placeholderTextColor="#ccc"
-            secureTextEntry
+            secureTextEntry={true}
+            onChangeText={(text) => setPassword(text)}
           />
           <TouchableOpacity onPress={() => navigation.navigate('Passewordforgot')}>
             <Text style={styles.forgotPassword}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Log In</Text>
+          <TouchableOpacity style={styles.loginButton} onPress={() => signIn()}>
+            <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
@@ -42,7 +67,9 @@ export default function Login({ navigation }) {
       </SafeAreaView>
     </View>
   );
-}
+};
+
+export default Login;
 
 const styles = StyleSheet.create({
   fullScreen: {
@@ -107,5 +134,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
 

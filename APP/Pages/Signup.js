@@ -1,19 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { firebase_auth } from '../../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 
 const { width } = Dimensions.get('window');
 
 const App = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState('');
+  const auth = firebase_auth;
+
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      alert('Check your emails!')
+    } catch (error) {
+      console.log(error);
+      alert('Sign up failed');
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Hi! Welcome</Text>
       <Text style={styles.register}>Please register in below</Text>
-      <TextInput style={styles.input} placeholder="Email or Phone Number" />
-      <TextInput style={styles.input} placeholder="Full Name" />
-      <TextInput style={styles.input} placeholder="Username" />
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Password" />
-      <TextInput style={styles.input} secureTextEntry={true} placeholder="Confirm Password" />
-      <TouchableOpacity style={styles.button}>
+      <TextInput
+        value={email}
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#ccc"
+        onChangeText={(text) => setEmail(text)} />
+      <TextInput 
+      style={styles.input} 
+      secureTextEntry={true} 
+      placeholder="Password" 
+      placeholderTextColor="#ccc"
+        onChangeText={(text) => setPassword(text)}/>
+
+      <TouchableOpacity styles={styles.loginButton} onPress={() => signUp()}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
       <Text style={styles.loginText}>
@@ -67,6 +96,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+    marginBottom: 20,
+    borderRadius: 20,
+    alignItems: 'center',
   },
   loginText: {
     color: 'white',

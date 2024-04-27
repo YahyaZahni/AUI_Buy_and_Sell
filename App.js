@@ -14,19 +14,19 @@ export default function App() {
         <Stack.Screen 
           name="Login" 
           component={Login} 
-          options={{ title: 'Login' }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen 
           name="Signup" 
           component={Signup} 
-          options={{ title: 'Signup' }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen 
           name="Passewordforgot" 
           component={Passewordforgot} // Make sure to export this component correctly in its file
-          options={{ title: 'Forgot Password' }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
-  }
+}
