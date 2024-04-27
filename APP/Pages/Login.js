@@ -1,21 +1,12 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StatusBar,
-  Dimensions,
-  Platform
+  StyleSheet, View, Text, TextInput, TouchableOpacity, Image,
+  KeyboardAvoidingView, SafeAreaView, StatusBar, Dimensions, Platform
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Login() {
+export default function Login({ navigation }) {
   return (
     <View style={styles.fullScreen}>
       <StatusBar backgroundColor="#004d40" barStyle="light-content" />
@@ -38,13 +29,13 @@ export default function Login() {
             placeholderTextColor="#ccc"
             secureTextEntry
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Passewordforgot')}>
             <Text style={styles.forgotPassword}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.loginButton}>
             <Text style={styles.loginButtonText}>Log In</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -57,12 +48,12 @@ const styles = StyleSheet.create({
   fullScreen: {
     flex: 1,
     backgroundColor: '#146434',
-    width: '100%' // Make sure it covers entire screen width
+    width: '100%'
   },
   safeAreaView: {
     flex: 1,
     backgroundColor: '#146434',
-    width: '100%' // Make sure it covers entire screen width
+    width: '100%'
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -110,14 +101,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginBottom: 15,
   },
-  loginButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   signUpText: {
     color: 'white',
     fontSize: 16,
     marginTop: 10,
   },
 });
+
+
