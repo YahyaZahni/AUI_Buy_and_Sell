@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { firebase_auth } from '../../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Login from './Login'; 
 
 const { width } = Dimensions.get('window');
 
@@ -11,6 +12,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('');
   const auth = firebase_auth;
+  const navigation = useNavigation();
 
   const signUp = async () => {
     setLoading(true);
@@ -45,9 +47,10 @@ const App = () => {
       <TouchableOpacity styles={styles.loginButton} onPress={() => signUp()}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <Text style={styles.loginText}>
-        Have an account? <Text style={styles.loginButton}>Log In</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <Text style={styles.loginText}>Have an account?<Text style={styles.loginButton}>Log In</Text>
       </Text>
+      </TouchableOpacity>
       <Text style={styles.footer}>
         We need permission for the service you use{' '}
         <Text style={styles.learnMore}>Learn More</Text>

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './APP/Pages/Login'; // Adjust the path as necessary
 import Signup from './APP/Pages/Signup'; // Adjust the path as necessary
 import Passewordforgot from './APP/Pages/Passewordforgot'; // Adjust the path and correct the file name if necessary
-
+import HomeScreen from './APP/Pages/HomeScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -16,6 +16,7 @@ export default function App() {
           component={Login} 
           options={{ headerShown: false }}
         />
+         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen 
           name="Signup" 
           component={Signup} 

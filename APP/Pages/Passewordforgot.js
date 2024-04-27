@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import  Signup from "./Signup";
+
 import {
   StyleSheet,
   View,
@@ -9,19 +12,20 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   StatusBar,
-  Dimensions,
-  Platform
+  Dimensions
 } from 'react-native';
 
-const { width,height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default function ForgotPassword() {
+  const navigation = useNavigation(); 
+
   return (
     <View style={styles.fullScreen}>
       <StatusBar backgroundColor="#004d40" barStyle="light-content" />
       <SafeAreaView style={styles.safeAreaView}>
         <KeyboardAvoidingView behavior="padding" style={styles.keyboardAvoidingView}>
-        <Image source={require('./../Assets/Image/forgot-password.png')}
+          <Image source={require('./../Assets/Image/forgot-password.png')}
             style={styles.logo}/>
           <Text style={styles.forgotPasswordText}>Oopps!</Text>
           <Text style={styles.forgotPasswordText}>I forgot</Text>
@@ -34,7 +38,7 @@ export default function ForgotPassword() {
           <TouchableOpacity style={styles.sendButton}>
             <Text style={styles.sendButtonText}>Send</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
